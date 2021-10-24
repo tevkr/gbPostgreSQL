@@ -1,0 +1,1 @@
+docker exec -it postgres bash -c "psql -U myuser -d mydb"
