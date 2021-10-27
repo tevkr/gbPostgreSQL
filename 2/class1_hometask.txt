@@ -1,0 +1,25 @@
+==================task_3==================
+
+CREATE TABLE test_table(
+	id INT GENERATED ALWAYS AS IDENTITY,
+	name TEXT,
+	is_enabled BOOLEAN
+);
+
+==========================================
+
+==================task_4==================
+
+INSERT INTO test_table (name, is_enabled) VALUES
+    ('name_1', TRUE),
+    ('name_2', TRUE),
+    ('name_3', FALSE);
+
+==========================================
+
+==================task_5==================
+
+mydb=> \dt
+ public | test_table | table | myuser
+
+==========================================

@@ -1,0 +1,96 @@
+==== Задание 4
+== Список таблиц
+
+mydb=> \d+
+                                   List of relations
+ Schema |        Name         | Type  | Owner  | Persistence |    Size    | Description
+--------+---------------------+-------+--------+-------------+------------+-------------
+ public | available_udp_ports | table | myuser | permanent   | 8192 bytes |
+ public | lobbies             | table | myuser | permanent   | 16 kB      |
+ public | users               | table | myuser | permanent   | 16 kB      |
+(3 rows)
+
+
+
+
+
+== Количество строк в каждой таблице в соответствии со статистикой, которую собирает Postgres;
+
+mydb=> SELECT RELTUPLES::BIGINT AS ESTIMATE FROM pg_class WHERE OID = 'public.available_udp_ports'::REGCLASS;
+ estimate
+----------
+        0
+(1 row)
+
+mydb=> SELECT RELTUPLES::BIGINT AS ESTIMATE FROM pg_class WHERE OID = 'public.lobbies'::REGCLASS;
+ estimate
+----------
+        0
+(1 row)
+
+mydb=> SELECT RELTUPLES::BIGINT AS ESTIMATE FROM pg_class WHERE OID = 'public.users'::REGCLASS;
+ estimate
+----------
+        0
+(1 row)
+
+
+
+
+
+== Объём диска, занимаемого каждой таблицей;
+
+mydb=> SELECT pg_table_size('available_udp_ports');
+ pg_table_size
+---------------
+          8192
+(1 row)
+
+mydb=> SELECT pg_table_size('users');
+ pg_table_size
+---------------
+         16384
+(1 row)
+
+mydb=> SELECT pg_table_size('lobbies');
+ pg_table_size
+---------------
+         16384
+(1 row)
+
+
+available_udp_ports 8192 bytes
+users 16384 bytes
+lobbies 16384 bytes
+
+
+
+
+
+== Общий объём диска, занимаемого экземпляром Postgres
+
+root@ad0f0fc85421:/#  du -sh $PGDATA/*
+31M     /var/lib/postgresql/data/base
+564K    /var/lib/postgresql/data/global
+0       /var/lib/postgresql/data/pg_commit_ts
+0       /var/lib/postgresql/data/pg_dynshmem
+8.0K    /var/lib/postgresql/data/pg_hba.conf
+4.0K    /var/lib/postgresql/data/pg_ident.conf
+0       /var/lib/postgresql/data/pg_logical
+16K     /var/lib/postgresql/data/pg_multixact
+0       /var/lib/postgresql/data/pg_notify
+0       /var/lib/postgresql/data/pg_replslot
+0       /var/lib/postgresql/data/pg_serial
+0       /var/lib/postgresql/data/pg_snapshots
+0       /var/lib/postgresql/data/pg_stat
+24K     /var/lib/postgresql/data/pg_stat_tmp
+8.0K    /var/lib/postgresql/data/pg_subtrans
+0       /var/lib/postgresql/data/pg_tblspc
+0       /var/lib/postgresql/data/pg_twophase
+0       /var/lib/postgresql/data/PG_VERSION
+16M     /var/lib/postgresql/data/pg_wal
+8.0K    /var/lib/postgresql/data/pg_xact
+0       /var/lib/postgresql/data/postgresql.auto.conf
+28K     /var/lib/postgresql/data/postgresql.conf
+0       /var/lib/postgresql/data/postmaster.opts
+0       /var/lib/postgresql/data/postmaster.pid
