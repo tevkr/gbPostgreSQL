@@ -1,0 +1,54 @@
+----- Получение свободного UDP порта
+EXPLAIN ANALYZE SELECT port FROM available_udp_ports WHERE availability = TRUE LIMIT 1;
+
+--- До добавления индекса
+ Limit  (cost=0.00..0.03 rows=1 width=4) (actual time=0.015..0.015 rows=1 loops=1)
+   ->  Seq Scan on available_udp_ports  (cost=0.00..34.70 rows=1235 width=4) (actual time=0.014..0.014 rows=1 loops=1
+)
+         Filter: availability
+ Planning Time: 0.053 ms
+ Execution Time: 0.027 ms
+(5 rows)
+
+--- После добавления индекса
+ Limit  (cost=0.00..0.52 rows=1 width=4) (actual time=0.008..0.008 rows=1 loops=1)
+   ->  Seq Scan on available_udp_ports  (cost=0.00..1.04 rows=2 width=4) (actual time=0.007..0.007 rows=1 loops=1)
+         Filter: availability
+ Planning Time: 0.045 ms
+ Execution Time: 0.017 ms
+(5 rows)
+
+mydb=> SELECT pg_relation_size('available_udp_ports_availability_idx');
+ pg_relation_size
+------------------
+            16384
+(1 row)
+
+
+
+
+
+----- Получение пользователей, находящихся в конкретном лобби
+EXPLAIN ANALYZE SELECT id, name FROM users WHERE lobby_id = 'f7677b26-c3f9-4028-9fa8-d4732e7e56f6';
+
+--- До добавления индекса
+ Seq Scan on users  (cost=0.00..18.12 rows=3 width=64) (actual time=0.009..0.010 rows=2 loops=1)
+   Filter: (lobby_id = 'f7677b26-c3f9-4028-9fa8-d4732e7e56f6'::text)
+   Rows Removed by Filter: 1
+ Planning Time: 0.070 ms
+ Execution Time: 0.021 ms
+(5 rows)
+
+--- После добавления индекса
+ Seq Scan on users  (cost=0.00..1.04 rows=1 width=64) (actual time=0.008..0.009 rows=2 loops=1)
+   Filter: (lobby_id = 'f7677b26-c3f9-4028-9fa8-d4732e7e56f6'::text)
+   Rows Removed by Filter: 1
+ Planning Time: 0.047 ms
+ Execution Time: 0.019 ms
+(5 rows)
+
+mydb=> SELECT pg_relation_size('users_lobby_id_idx');
+ pg_relation_size
+------------------
+            16384
+(1 row)
