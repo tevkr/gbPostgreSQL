@@ -1,0 +1,36 @@
+используемый процессор - Процессор	Intel(R) Core(TM) i5-8600K CPU @ 3.60GHz, 3600 МГц
+количество ядер - 6
+объём оперативной памяти - 8,00 ГБ
+объём жесткого диска - 127,94 ГБ (137 377 083 392 байт)
+
+
+======== main.findAvailableUdpPortAttack; cfg conns = 1 ========
+duration: 10.458733s
+threads: 1000
+queries: 22270
+QPS: 2227
+======== main.findAvailableUdpPortAttack; cfg conns = 8 ========
+duration: 10.0769818s
+threads: 1000
+queries: 124646
+QPS: 12464
+======== main.findLobbyUsersAttack; cfg conns = 1 ========
+duration: 10.4932726s
+threads: 1000
+queries: 20539
+QPS: 2053
+======== main.findLobbyUsersAttack; cfg conns = 8 ========
+duration: 10.0840758s
+threads: 1000
+queries: 111808
+QPS: 11180
+======== main.updateUsersLobbyIdAttack; cfg conns = 1 ========
+duration: 11.6735813s
+threads: 1000
+queries: 5968
+QPS: 542
+======== main.updateUsersLobbyIdAttack; cfg conns = 8 ========
+duration: 11.3258408s
+threads: 1000
+queries: 8187
+QPS: 744
